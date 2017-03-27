@@ -1,10 +1,7 @@
 (function () {
   function CollectionCtrl(Fixtures){
-   this.albums = [];// create an empty array
-   for (var i=0; i < 12; i++) {
-     this.albums.push(angular.copy(albumPicasso));// push
-     //angular.copy is a component of the angular object
-   }
+
+   this.albums = Fixtures.getCollection(12);
   }
   angular
    .module('blocJams')
