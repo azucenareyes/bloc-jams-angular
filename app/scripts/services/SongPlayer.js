@@ -1,10 +1,16 @@
 (function() {
-  function SongPlayer() {
-    varSongPlayer = {};
-    return Songplayer;
-  }
+    function SongPlayer() {
+      varSongPlayer = {};
+      SongPlayer.play = function(song) {
+        var currentBuzzObject = new buzz.sound(song.audioUrl, {
+          formats: ['mp3'],
+          preload: true
+        });
+        currentBuzzObject.play();
+      };
+      return SongPlayer;
 
-  angular
-  .module('blocJams')
-  .factory('SongPlayer', SongPlayer);
-})();
+      angular
+        .module('blocJams')
+        .factory('SongPlayer', SongPlayer);
+    })();
