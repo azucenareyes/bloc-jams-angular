@@ -1,4 +1,8 @@
 (function() {
+  /*
+  @desc Fixtures has an empty object, two ablum objects: albumPicasso and albumMarconi, .getAlbum as a method from where 
+    */
+
   function Fixtures() {
     var Fixtures = {};
 
