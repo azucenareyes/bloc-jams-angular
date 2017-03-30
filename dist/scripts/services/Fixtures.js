@@ -1,6 +1,6 @@
 (function() {
   /*
-  @desc Fixtures has an empty object, two ablum objects: albumPicasso and albumMarconi, .getAlbum as a method from where 
+  @desc Fixtures has an empty object, two ablum objects: albumPicasso and albumMarconi, .getAlbum as a method from where
     */
 
   function Fixtures() {
@@ -84,7 +84,7 @@
 
   angular
     .module('blocJams')
-    .factory('Fixtures', Fixtures)
+    .factory('Fixtures', Fixtures);
   // the factory will return this object and make it's properties and methods availalbe
   //to other parts of our application
 
