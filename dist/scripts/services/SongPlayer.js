@@ -3,28 +3,23 @@
     // @desc private attribute for our SongPlayer service
     // @type object, array, number, boolean, null? = object
     var SongPlayer = {};
-    // @desc private attribute for our SongPlayer service
-    // @type object, array, number, boolean, null? = null
-    var currentSong = null;
 
-  /*
- * @desc Buzz object audio file
- * @type {Object}
- */
-    var currentBuzzObject = null;
+    var currentSong = null;//private attrubute for our SongPlayer service
+/*  @desc Buzz object audio file
+*@type
+  */
+    var currentBuzzObject = null;//private attribute for our SongPlayer service
     /*
      * @function playSong
      * @desc This is a function that has a method of play and a method with a boolean?
      * @param {Object} song
      * @returns {Number}
      */
-
-    var playSong = function(){
-
+    var playSong = function(song) {
       currentBuzzObject.play();
       song.playing = true;
+    }
 
-    };
     var setSong = function(song) {//this is a private function(setSong)
       if (currentBuzzObject) {
         currentBuzzObject.stop();
@@ -46,12 +41,10 @@
     SongPlayer.play = function(song) {//public method
       if (currentSong !== song) {
         setSong(song);
-        playSong();
-        /*currentBuzzObject.play();
-        song.playing = true; */
+        playSong(song);
       } else if (currentSong === song) {
         if (currentBuzzObject.isPaused()) {
-          currentBuzzObject.play();
+          playSong(song)
         }
       }
     };
