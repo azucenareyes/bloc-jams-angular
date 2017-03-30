@@ -1,13 +1,11 @@
-(function() {//This is the SongPlayer service
+(function() {
+  //This is the SongPlayer service
+  // @desc private attribute for our SongPlayer service
+  // @type object, array, number, boolean, null? = object
   function SongPlayer() {
-    // @desc private attribute for our SongPlayer service
-    // @type object, array, number, boolean, null? = object
-    var SongPlayer = {};
 
-    var currentSong = null;//private attrubute for our SongPlayer service
-/*  @desc Buzz object audio file
-*@type
-  */
+    var SongPlayer = {};
+    var currentSong = null;
     var currentBuzzObject = null;//private attribute for our SongPlayer service
     /*
      * @function playSong
