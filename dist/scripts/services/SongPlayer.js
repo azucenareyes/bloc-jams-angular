@@ -7,12 +7,12 @@
     var SongPlayer = {};
     var currentSong = null;
     var currentBuzzObject = null;//private attribute for our SongPlayer service
-    /*
-     * @function playSong
-     * @desc This is a function that has a method of play and a method with a boolean?
-     * @param {Object} song
-     * @returns {Number}
-     */
+/*
+* @function playSong
+* @desc This is a function that has a method of play and a method with a boolean?
+* @param {Object} song
+* @returns {Number}
+*/
     var playSong = function(song) {
       currentBuzzObject.play();
       song.playing = true;
@@ -22,12 +22,12 @@
       if (currentBuzzObject) {
         currentBuzzObject.stop();
         currentSong.playing = null;
-        /*
-         * @function setSong
-         * @desc Stops currently playing song and loads new audio file as currentBuzzObject
-         * @param {Object} song
-         * @returns {Number}
-         */
+/*
+ * @function setSong
+ * @desc Stops currently playing song and loads new audio file as currentBuzzObject
+ * @param {Object} song
+ * @returns {Number}
+ */
       }
       currentBuzzObject = new buzz.sound(song.audioUrl, {
         formats: ['mp3'],
