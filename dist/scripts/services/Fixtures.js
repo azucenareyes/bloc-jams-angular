@@ -1,8 +1,7 @@
 (function() {
   /*
-  @desc Fixtures has an empty object, two ablum objects: albumPicasso and albumMarconi, .getAlbum as a method from where
-    */
-
+@desc Fixtures has an empty object, two ablum objects: albumPicasso and albumMarconi, .getAlbum as a method from where
+  */
   function Fixtures() {
     var Fixtures = {};
 
@@ -74,7 +73,7 @@
     Fixtures.getCollection = function(numberOfAlbums) {
       var collection = [];
       for(var i = 0; i < numberOfAlbums; i++){
-        collection.push(albumPicasso)
+        collection.push(albumPicasso);
       }
       return collection;
     };
