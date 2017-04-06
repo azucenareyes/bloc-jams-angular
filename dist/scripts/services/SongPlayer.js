@@ -1,21 +1,10 @@
 (function() {
-    //This is the SongPlayer service
-    // @desc private attribute for our SongPlayer service
-    // @type object, array, number, boolean, null? = object
-    function SongPlayer(Fixtures) {
+
+    function SongPlayer($rootScope, Fixtures) {
 
       var SongPlayer = {};
-      //@desc private attirubute function
-      //@type function
       var currentAlbum = Fixtures.getAlbum();
-
-      var currentBuzzObject = null; //private attribute for our SongPlayer service
-      /*
-       * @function playSong
-       * @desc This is a function that has a method of play and a method with a boolean?
-       * @param {Object} song
-       * @returns {Number}
-       */
+      var currentBuzzObject = null;
       var playSong = function(song) {
         currentBuzzObject.play();
         song.playing = true;
@@ -24,23 +13,30 @@
         currentBuzzObject.stop();
         song.playing = null;
       };
-      var setSong = function(song) { //this is a private function(setSong)
+      var setSong = function(song) {
         if (currentBuzzObject) {
-          stopSong(SongPlayer.currentSong);
+          currentBuzzObject.stop();
+          SongPlayer.currentSong.playing = null;
         }
         currentBuzzObject = new buzz.sound(song.audioUrl, {
           formats: ['mp3'],
           preload: true
+          });
+      currentBuzzObject.bind('timeupdate', function() {
+        $rootScope.$apply(function() {
+               SongPlayer.currentTime = currentBuzzObject.getTime();
         });
+       });
         SongPlayer.currentSong = song;
       };
 
       var getSongIndex = function(song) {
         return currentAlbum.songs.indexOf(song);
       };
-      SongPlayer.currentSong = null; //changed this from private to pubic somehow, so that we can use it in player bar.
-      SongPlayer.play = function(song) { //public method
-        song = song || SongPlayer.currentSong; // either assign the value of song or the value of SongPlayer.currentSong
+      SongPlayer.currentSong = null;
+      SongPlayer.currentTime = null;
+      SongPlayer.play = function(song) {
+        song = song || SongPlayer.currentSong;
         if (SongPlayer.currentSong !== song) {
           setSong(song);
           playSong(song);
@@ -51,44 +47,37 @@
           }
         }
       };
-      SongPlayer.pause = function(song) { //public method
+      SongPlayer.pause = function(song) {
         song = song || SongPlayer.currentSong;
         currentBuzzObject.pause();
         song.playing = false;
       };
       SongPlayer.previous = function() {
-        var currentSongIndex = getSongIndex(SongPlayer.currentSong); //what song are we on
-        currentSongIndex--; //subtract one
-        //if index doesn't exist
+        var currentSongIndex = getSongIndex(SongPlayer.currentSong);
+        currentSongIndex--;
         if (currentSongIndex < 0) {
           stopSong(SongPlayer.currentSong);
-        //if index does exist
         } else {
-          var song = currentAlbum.songs[currentSongIndex];  //grab the song using the new index
+          var song = currentAlbum.songs[currentSongIndex];
           setSong(song);
           playSong(song);
         }
       };
       SongPlayer.next = function(){
-        var currentSongIndex = getSongIndex(SongPlayer.currentSong); //what song are we on
+        var currentSongIndex = getSongIndex(SongPlayer.currentSong);
         currentSongIndex++;
         if (currentSongIndex > currentAlbum.songs.length) {
           stopSong(SongPlayer.currentSong);
         } else {
-          var song = currentAlbum.songs[currentSongIndex];  //grab the song using the new index
+          var song = currentAlbum.songs[currentSongIndex];
           setSong(song);
           playSong(song);
         }
       };
     return SongPlayer;
   }
-  /*
-    @desc changes current song to prior song
-    @function previous is a method to go to previous song
-    @parameter none
-    @returns
-    */
+
   angular
   .module('blocJams')
-  .factory('SongPlayer', ['Fixtures', SongPlayer]);
+  .factory('SongPlayer', ['$rootScope', 'Fixtures', SongPlayer]);
 })();
