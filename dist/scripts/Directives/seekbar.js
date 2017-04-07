@@ -19,9 +19,15 @@
         scope.value = 0;
         scope.max = 100;
 
-        var seekBar = $(element);
+      var seekBar = $(element);
+      attributes.$observe('value', function(newValue) {
+       scope.value = newValue;
+      });
 
-        var percentString = function() {
+      attributes.$observe('max', function(newValue) {
+       scope.max = newValue;
+      });
+          var percentString = function() {
           var value = scope.value;
           var max = scope.max;
           var percent = value / max * 100;
