@@ -1,18 +1,10 @@
 (function() {
 
     function SongPlayer($rootScope, Fixtures) {
-
       var SongPlayer = {};
       var currentAlbum = Fixtures.getAlbum();
       var currentBuzzObject = null;
-      var playSong = function(song) {
-        currentBuzzObject.play();
-        song.playing = true;
-      };
-      var stopSong = function(song) {
-        currentBuzzObject.stop();
-        song.playing = null;
-      };
+
       var setSong = function(song) {
         if (currentBuzzObject) {
           currentBuzzObject.stop();
@@ -30,11 +22,24 @@
         SongPlayer.currentSong = song;
       };
 
+      var playSong = function(song) {
+        currentBuzzObject.play();
+        song.playing = true;
+      };
+      var stopSong = function(song) {
+        currentBuzzObject.stop();
+        song.playing = null;
+      };
+
+
       var getSongIndex = function(song) {
         return currentAlbum.songs.indexOf(song);
       };
+
       SongPlayer.currentSong = null;
       SongPlayer.currentTime = null;
+      SongPlayer.volume = 60;
+
       SongPlayer.play = function(song) {
         song = song || SongPlayer.currentSong;
         if (SongPlayer.currentSong !== song) {
@@ -42,7 +47,7 @@
           playSong(song);
         } else if (SongPlayer.currentSong === song) {
           song = song || SongPlayer.currentSong;
-          if (currentBuzzObject && currentBuzzObject.isPaused()){
+          if (currentBuzzObject.isPaused()){
             playSong(song);
           }
         }
@@ -74,6 +79,21 @@
           playSong(song);
         }
       };
+
+      SongPlayer.setCurrentTime = function(time) {
+            if (currentBuzzObject) {
+                currentBuzzObject.setTime(time);
+            }
+        };
+
+        SongPlayer.setVolume = function(volume) {
+            if (currentBuzzObject) {
+                currentBuzzObject.setVolume(volume);
+            }
+        };
+
+
+
     return SongPlayer;
   }
 
